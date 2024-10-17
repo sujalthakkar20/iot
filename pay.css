@@ -1,0 +1,36 @@
+img {
+    width: 500px;
+    length: 500px;
+    position: relative; /* Ensures the image is positioned on top */
+    z-index: 1; /* Makes sure it's above the background */
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-size: cover;
+    background-position: center;
+    position: relative; /* To ensure the image is inside the body */
+}
+
+@media (max-width: 768px) {
+    img {
+        width: 300px; /* Reduce the image size for tablets */
+    }
+    body {
+        padding: 20px; /* Add some padding for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    img {
+        width: 200px; /* Further reduce image size for mobile phones */
+    }
+    body {
+        flex-direction: column; /* Stack content vertically for small screens */
+        padding: 10px;
+    }
+}

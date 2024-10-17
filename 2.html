@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Parking - Charge Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Digital Parking - Charge Management</h1>
+    <p>Select the duration for each parking slot and calculate the total charges.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Slot</th>
+                <th>Vehicle No</th>
+                <th>Hours Parked</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Slots 1 to 8 -->
+            <tr>
+                <td>Slot 1</td>
+                <td><input type="text" id="vehicle1" placeholder="Enter vehicle_no"></td>
+                <td><input type="number" id="hours1" min="0" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td>Slot 2</td>
+                <td><input type="text" id="vehicle2" placeholder="Enter vehicle_no"></td>
+                <td><input type="number" id="hours2" min="0" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td>Slot 3</td>
+                <td><input type="text" id="vehicle3" placeholder="Enter vehicle_no"></td>
+                <td><input type="number" id="hours3" min="0" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td>Slot 4</td>
+                <td><input type="text" id="vehicle4" placeholder="Enter vehicle_no"></td>
+                <td><input type="number" id="hours4" min="0" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td>Slot 5</td>
+                <td><input type="text" id="vehicle5" placeholder="Enter vehicle_no"></td>
+                <td><input type="number" id="hours5" min="0" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td>Slot 6</td>
+                <td><input type="text" id="vehicle6" placeholder="Enter vehicle_no"></td>
+                <td><input type="number" id="hours6" min="0" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td>Slot 7</td>
+                <td><input type="text" id="vehicle7" placeholder="Enter vehicle_no"></td>
+                <td><input type="number" id="hours7" min="0" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td>Slot 8</td>
+                <td><input type="text" id="vehicle8" placeholder="Enter vehicle_no"></td>
+                <td><input type="number" id="hours8" min="0" placeholder="0"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button class="calculate-btn" onclick="calculateCharges()">Calculate Total Charges</button>
+    <a href="payment.html" class="payment-btn" onclick="return confirmPayment()">Make Payment</a>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>    
+    const hourlyRate = 100; // Set hourly rate for parking in rupees
+
+    function calculateCharges() {
+        let totalHours = 0;
+        let totalCharge = 0;
+        let individualCharges = '';
+
+        // Get the parking duration for each slot
+        for (let i = 1; i <= 8; i++) {
+            const hours = document.getElementById(`hours${i}`).value;
+            const hoursParked = parseFloat(hours) || 0;
+
+            // Calculate individual charge
+            const charge = hoursParked * hourlyRate;
+            individualCharges += `Slot ${i}: ${hoursParked} hours - ₹${charge.toFixed(2)}<br>`;
+            
+            // Sum up total hours and total charge
+            totalHours += hoursParked;
+            totalCharge += charge;
+        }
+
+        // Display the result
+        document.getElementById('result').innerHTML = ` 
+            <strong>Individual Charges:</strong><br>
+            ${individualCharges}
+         
+            <strong>Total Charge:</strong> ₹${totalCharge.toFixed(2)}`;
+    }
+
+    function confirmPayment() {
+        const resultText = document.getElementById('result').innerHTML;
+        if (!resultText) {
+            alert("Please calculate the charges before making a payment.");
+            return false; // Prevent navigation
+        } else {
+            return true; // Allow navigation
+        }
+    }
+
+
+
+</script>
+
+</body>
+</html>
